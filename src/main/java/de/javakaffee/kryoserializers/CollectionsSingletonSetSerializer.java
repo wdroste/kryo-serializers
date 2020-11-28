@@ -26,28 +26,28 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 /**
- * A kryo {@link Serializer} for {@link List}s created via {@link Collections#singletonList(Object)}.
- * <p>
- * Note: This serializer does not support cyclic references, if a serialized object
- * is part of a cycle this might cause an error during deserialization.
- * </p>
- * 
+ * A kryo {@link Serializer} for {@link List}s created via {@link
+ * Collections#singletonList(Object)}.
+ *
+ * <p>Note: This serializer does not support cyclic references, if a serialized object is part of a
+ * cycle this might cause an error during deserialization.
+ *
  * @author <a href="mailto:martin.grotzke@javakaffee.de">Martin Grotzke</a>
  */
 public class CollectionsSingletonSetSerializer extends Serializer<Set<?>> {
 
-    public CollectionsSingletonSetSerializer() {
-        setImmutable(true);
-    }
+  public CollectionsSingletonSetSerializer() {
+    setImmutable(true);
+  }
 
-    @Override
-    public Set<?> read(final Kryo kryo, final Input input, final Class<? extends Set<?>> type) {
-        final Object obj = kryo.readClassAndObject( input );
-        return Collections.singleton( obj );
-    }
+  @Override
+  public Set<?> read(final Kryo kryo, final Input input, final Class<? extends Set<?>> type) {
+    final Object obj = kryo.readClassAndObject(input);
+    return Collections.singleton(obj);
+  }
 
-    @Override
-    public void write(final Kryo kryo, final Output output, final Set<?> set) {
-        kryo.writeClassAndObject( output, set.iterator().next() );
-    }
+  @Override
+  public void write(final Kryo kryo, final Output output, final Set<?> set) {
+    kryo.writeClassAndObject(output, set.iterator().next());
+  }
 }

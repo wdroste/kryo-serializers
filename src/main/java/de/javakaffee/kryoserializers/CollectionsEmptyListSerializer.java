@@ -25,23 +25,22 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 /**
- * A kryo {@link Serializer} for {@link List}s created via {@link Collections#emptyList()}
- * or that were just assigned the {@link Collections#EMPTY_LIST}.
- * 
+ * A kryo {@link Serializer} for {@link List}s created via {@link Collections#emptyList()} or that
+ * were just assigned the {@link Collections#EMPTY_LIST}.
+ *
  * @author <a href="mailto:martin.grotzke@javakaffee.de">Martin Grotzke</a>
  */
 public class CollectionsEmptyListSerializer extends Serializer<List<?>> {
 
-    public CollectionsEmptyListSerializer() {
-        setImmutable(true);
-    }
+  public CollectionsEmptyListSerializer() {
+    setImmutable(true);
+  }
 
-    @Override
-    public List<?> read(final Kryo kryo, final Input input, final Class<? extends List<?>> type) {
-        return Collections.EMPTY_LIST;
-    }
+  @Override
+  public List<?> read(final Kryo kryo, final Input input, final Class<? extends List<?>> type) {
+    return Collections.EMPTY_LIST;
+  }
 
-    @Override
-    public void write(final Kryo kryo, final Output output, final List<?> object) {
-    }
+  @Override
+  public void write(final Kryo kryo, final Output output, final List<?> object) {}
 }

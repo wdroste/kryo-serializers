@@ -31,51 +31,48 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 /**
- * A format for Joda {@link Interval}, that stores the start and end millis, and chronology 
- * as separate attributes. If the chronology is {@link ISOChronology},
- * the attribute is omitted, thus {@link ISOChronology} is seen as default.
- * <p>
- * The following chronologies are supported:
+ * A format for Joda {@link Interval}, that stores the start and end millis, and chronology as
+ * separate attributes. If the chronology is {@link ISOChronology}, the attribute is omitted, thus
+ * {@link ISOChronology} is seen as default.
+ *
+ * <p>The following chronologies are supported:
+ *
  * <ul>
- * <li>{@link ISOChronology}</li>
- * <li>{@link CopticChronology}</li>
- * <li>{@link EthiopicChronology}</li>
- * <li>{@link GregorianChronology}</li>
- * <li>{@link JulianChronology}</li>
- * <li>{@link IslamicChronology}</li>
- * <li>{@link BuddhistChronology}</li>
- * <li>{@link GJChronology}</li>
+ *   <li>{@link ISOChronology}
+ *   <li>{@link CopticChronology}
+ *   <li>{@link EthiopicChronology}
+ *   <li>{@link GregorianChronology}
+ *   <li>{@link JulianChronology}
+ *   <li>{@link IslamicChronology}
+ *   <li>{@link BuddhistChronology}
+ *   <li>{@link GJChronology}
  * </ul>
- * </p>
- * 
  */
 public class JodaIntervalSerializer extends Serializer<Interval> {
 
-    public JodaIntervalSerializer() {
-        setImmutable(true);
-    }
+  public JodaIntervalSerializer() {
+    setImmutable(true);
+  }
 
-    @Override
-    public Interval read(final Kryo kryo, final Input input, final Class<? extends Interval> type) {
-        
-        long startMillis = input.readLong(true);
-        long endMillis = input.readLong(true);
-        
-        final Chronology chronology = IdentifiableChronology.readChronology( input );
-        
-        return new Interval(startMillis, endMillis, chronology);
-    }
+  @Override
+  public Interval read(final Kryo kryo, final Input input, final Class<? extends Interval> type) {
 
-    @Override
-    public void write(final Kryo kryo, final Output output, final Interval obj) {
-        final long startMillis = obj.getStartMillis();
-        final long endMillis = obj.getEndMillis();
-        final String chronologyId = IdentifiableChronology.getChronologyId( obj.getChronology() );
-        
-        output.writeLong(startMillis, true);
-        output.writeLong(endMillis, true);
-        output.writeString(chronologyId == null ? "" : chronologyId);
-    }
-    
+    long startMillis = input.readLong(true);
+    long endMillis = input.readLong(true);
 
+    final Chronology chronology = IdentifiableChronology.readChronology(input);
+
+    return new Interval(startMillis, endMillis, chronology);
+  }
+
+  @Override
+  public void write(final Kryo kryo, final Output output, final Interval obj) {
+    final long startMillis = obj.getStartMillis();
+    final long endMillis = obj.getEndMillis();
+    final String chronologyId = IdentifiableChronology.getChronologyId(obj.getChronology());
+
+    output.writeLong(startMillis, true);
+    output.writeLong(endMillis, true);
+    output.writeString(chronologyId == null ? "" : chronologyId);
+  }
 }

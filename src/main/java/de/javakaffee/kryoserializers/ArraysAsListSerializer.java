@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class ArraysAsListSerializer extends Serializer<List<?>> {
 
-    private Field _arrayField;
+    private final Field _arrayField;
 
     public ArraysAsListSerializer() {
         try {

@@ -14,45 +14,41 @@
  */
 package de.javakaffee.kryoserializers.jodatime;
 
-import static de.javakaffee.kryoserializers.KryoTest.deserialize;
-import static de.javakaffee.kryoserializers.KryoTest.serialize;
-
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Interval;
+
+import com.esotericsoftware.kryo.Kryo;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.esotericsoftware.kryo.Kryo;
+import static de.javakaffee.kryoserializers.KryoTest.deserialize;
+import static de.javakaffee.kryoserializers.KryoTest.serialize;
 
-/**
- * Test for {@link JodaIntervalSerializer}.
- * 
- */
+/** Test for {@link JodaIntervalSerializer}. */
 public class JodaIntervalSerializerTest {
-    
-    private Kryo _kryo;
 
-    @BeforeTest
-    protected void beforeTest() {
-        _kryo = new Kryo();
-        _kryo.register( Interval.class, new JodaIntervalSerializer() );
-    }
+  private Kryo _kryo;
 
-    @Test( enabled = true )
-    public void testJodaInterval() {
-        final Interval obj = new Interval(new DateTime(1942,1,1,0,0,0,0), Days.days(42));
-        final byte[] serialized = serialize( _kryo, obj );
-        final Interval deserialized = deserialize( _kryo, serialized, Interval.class );
-        Assert.assertEquals( deserialized, obj );
-    }
+  @BeforeTest
+  protected void beforeTest() {
+    _kryo = new Kryo();
+    _kryo.register(Interval.class, new JodaIntervalSerializer());
+  }
 
-    @Test( enabled = true )
-    public void testCopyJodaDateTime() {
-        final Interval obj = new Interval(new DateTime(1942,1,1,0,0,0,0), Days.days(42));
-        final Interval copy = _kryo.copy(obj);
-        Assert.assertEquals( copy, obj );
-    }
+  @Test(enabled = true)
+  public void testJodaInterval() {
+    final Interval obj = new Interval(new DateTime(1942, 1, 1, 0, 0, 0, 0), Days.days(42));
+    final byte[] serialized = serialize(_kryo, obj);
+    final Interval deserialized = deserialize(_kryo, serialized, Interval.class);
+    Assert.assertEquals(deserialized, obj);
+  }
 
+  @Test(enabled = true)
+  public void testCopyJodaDateTime() {
+    final Interval obj = new Interval(new DateTime(1942, 1, 1, 0, 0, 0, 0), Days.days(42));
+    final Interval copy = _kryo.copy(obj);
+    Assert.assertEquals(copy, obj);
+  }
 }

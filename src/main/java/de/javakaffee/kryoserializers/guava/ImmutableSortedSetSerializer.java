@@ -1,15 +1,15 @@
 package de.javakaffee.kryoserializers.guava;
 
+import java.util.Comparator;
+
+import com.google.common.collect.ImmutableSortedSet;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.google.common.collect.ImmutableSortedSet;
-import java.util.Comparator;
 
-/**
- * A kryo {@link Serializer} for guava-libraries {@link ImmutableSortedSet}.
- */
+/** A kryo {@link Serializer} for guava-libraries {@link ImmutableSortedSet}. */
 public class ImmutableSortedSetSerializer extends Serializer<ImmutableSortedSet<Object>> {
 
   private static final boolean DOES_NOT_ACCEPT_NULL = false;
@@ -29,9 +29,11 @@ public class ImmutableSortedSetSerializer extends Serializer<ImmutableSortedSet<
   }
 
   @Override
-  public ImmutableSortedSet<Object> read(Kryo kryo, Input input, Class<? extends ImmutableSortedSet<Object>> type) {
-    @SuppressWarnings ("unchecked")
-    ImmutableSortedSet.Builder<Object> builder = ImmutableSortedSet.orderedBy((Comparator<Object>)kryo.readClassAndObject (input));
+  public ImmutableSortedSet<Object> read(
+      Kryo kryo, Input input, Class<? extends ImmutableSortedSet<Object>> type) {
+    @SuppressWarnings("unchecked")
+    ImmutableSortedSet.Builder<Object> builder =
+        ImmutableSortedSet.orderedBy((Comparator<Object>) kryo.readClassAndObject(input));
     final int size = input.readInt(true);
     for (int i = 0; i < size; ++i) {
       builder.add(kryo.readClassAndObject(input));
@@ -40,8 +42,8 @@ public class ImmutableSortedSetSerializer extends Serializer<ImmutableSortedSet<
   }
 
   /**
-   * Creates a new {@link ImmutableSortedSetSerializer} and registers its serializer
-   * for the several ImmutableSortedSet related classes.
+   * Creates a new {@link ImmutableSortedSetSerializer} and registers its serializer for the several
+   * ImmutableSortedSet related classes.
    *
    * @param kryo the {@link Kryo} instance to set the serializer on
    */
@@ -57,6 +59,6 @@ public class ImmutableSortedSetSerializer extends Serializer<ImmutableSortedSet<
     kryo.register(ImmutableSortedSet.class, serializer);
     kryo.register(ImmutableSortedSet.of().getClass(), serializer);
     kryo.register(ImmutableSortedSet.of("").getClass(), serializer);
-    kryo.register(ImmutableSortedSet.of().descendingSet ().getClass(), serializer);
+    kryo.register(ImmutableSortedSet.of().descendingSet().getClass(), serializer);
   }
 }

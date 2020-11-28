@@ -16,15 +16,15 @@
  */
 package de.javakaffee.kryoserializers.jodatime;
 
-import static de.javakaffee.kryoserializers.KryoTest.deserialize;
-import static de.javakaffee.kryoserializers.KryoTest.serialize;
-
 import org.joda.time.LocalDateTime;
+
+import com.esotericsoftware.kryo.Kryo;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.esotericsoftware.kryo.Kryo;
+import static de.javakaffee.kryoserializers.KryoTest.deserialize;
+import static de.javakaffee.kryoserializers.KryoTest.serialize;
 
 /**
  * Test for {@link JodaLocalDateTimeSerializer}.
@@ -33,27 +33,26 @@ import com.esotericsoftware.kryo.Kryo;
  */
 public class JodaLocalDateTimeSerializerTest {
 
-   private Kryo _kryo;
+  private Kryo _kryo;
 
-   @BeforeTest
-   protected void beforeTest() {
-      _kryo = new Kryo();
-      _kryo.register(LocalDateTime.class, new JodaLocalDateTimeSerializer());
-   }
+  @BeforeTest
+  protected void beforeTest() {
+    _kryo = new Kryo();
+    _kryo.register(LocalDateTime.class, new JodaLocalDateTimeSerializer());
+  }
 
-   @Test(enabled = true)
-   public void testJodaLocalDateTime() {
-      final LocalDateTime obj = new LocalDateTime().withDayOfYear(42);
-      final byte[] serialized = serialize(_kryo, obj);
-      final LocalDateTime deserialized = deserialize(_kryo, serialized, LocalDateTime.class);
-      Assert.assertEquals(deserialized, obj);
-   }
+  @Test(enabled = true)
+  public void testJodaLocalDateTime() {
+    final LocalDateTime obj = new LocalDateTime().withDayOfYear(42);
+    final byte[] serialized = serialize(_kryo, obj);
+    final LocalDateTime deserialized = deserialize(_kryo, serialized, LocalDateTime.class);
+    Assert.assertEquals(deserialized, obj);
+  }
 
-   @Test(enabled = true)
-   public void testCopyJodaLocalDateTime() {
-      final LocalDateTime obj = new LocalDateTime().withDayOfYear(42);
-      final LocalDateTime copy = _kryo.copy(obj);
-      Assert.assertEquals(copy, obj);
-   }
-
+  @Test(enabled = true)
+  public void testCopyJodaLocalDateTime() {
+    final LocalDateTime obj = new LocalDateTime().withDayOfYear(42);
+    final LocalDateTime copy = _kryo.copy(obj);
+    Assert.assertEquals(copy, obj);
+  }
 }
