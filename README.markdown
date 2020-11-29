@@ -25,16 +25,10 @@ A project that provides [kryo](https://github.com/EsotericSoftware/kryo) (v2, v3
 * UnicodeBlockSerializer - serializer for Character.UnicodeBlock
 * FieldAnnotationAwareSerializer - field serializer that either ignores fields with user-specified annotations or exclusively considers such fields (e.g. useful to ignore all fields annotated with Springs `@Autowired` annotation).
 * GregorianCalendarSerializer - optimized serializer for (Gregorian)Calendar (24 bytes vs. 1323 bytes with FieldSerializer)
-* JdkProxySerializer - for jdk proxies (proxies created via Proxy.newProxyInstance)
-* KryoReflectionFactorySupport - kryo specialization that uses sun's ReflectionFactory to create new instances for classes without a default constructor
 * SubListSerializers - serializer for lists created via List#subList(int, int)
 * SynchronizedCollectionsSerializer - for synchronized Collections and Maps created via Collections.synchronized*.
 * UnmodifiableCollectionsSerializer - for unmodifiable Collections and Maps created via Collections.unmodifiable*.
 
-* cglib/CGLibProxySerializer - serializer for CGLib proxies
-* dexx/ListSerializer - serializer for dexx-collections' List
-* dexx/SetSerializer - serializer for dexx collecttions' Set
-* dexx/MapSerializer - serializer for dexx collections' Map
 * guava/ArrayListMultimapSerializer - serializer for guava-libraries' ArrayListMultimap
 * guava/ArrayTableSerializer - serializer for guava-libraries' ArrayTable
 * guava/HashBasedTableSerializer - serializer for guava-libraries' HashBasedTable
@@ -56,8 +50,6 @@ A project that provides [kryo](https://github.com/EsotericSoftware/kryo) (v2, v3
 * jodatime/JodaLocalDateSerializer - serializer for joda's LocalDate
 * jodatime/JodaLocalDateTimeSerializer - serializer for joda's LocalDateTime
 * jodatime/JodaLocalTimeSerializer - serializer for joda's LocalTime
-* protobuf/ProtobufSerializer - serializer for protobuf GeneratedMessages
-* wicket/MiniMapSerializer - serializer for wicket's MiniMap
 
 # Usage
 To be able to use the serializers you have to add the jar to your classpath. If your build tool support maven repositories you can use this dependency:
